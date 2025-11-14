@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.codeanapp.project.mapper.PelajarExampMapper">
+
+    <insert id="insertPelajarExamp" parameterType="com.codeanapp.project.model.PelajarExamp">
+        INSERT INTO pelajarexamp (idpelajarexamp, exampid, pelajarid, nilai)
+        VALUES (#{idpelajarexamp}, #{exampid}, #{pelajarid}, #{nilai})
+    </insert>
+
+    <select id="getAllPelajarExamp" resultType="com.codeanapp.project.model.PelajarExamp">
+        SELECT idpelajarexamp, exampid, pelajarid, nilai
+        FROM pelajarexamp
+        ORDER BY
+        <choose>
+            <when test="sort == 'idAsc'"> idpelajarexamp ASC</when>
+        </choose>
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+
+    <select id="countPelajarExamp" resultType="int">
+        SELECT COUNT (*) FROM pelajarexamp
+    </select>
+
+    <delete id="deletePelajarExamp" parameterType="String">
+        DELETE FROM pelajarexamp
+        WHERE idpelajarexamp = #{idpelajarexamp}
+    </delete>
+</mapper>

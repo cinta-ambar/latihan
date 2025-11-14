@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.codeanapp.project.mapper.MateriMapper">
+
+    <insert id="insertMateri" parameterType="com.codeanapp.project.model.Materi">
+        INSERT INTO materi (idmateri, stackid, judulmateri, deskripsimateri)
+        VALUES (#{idmateri}, #{stackid}, #{judulmateri}, #{deskripsimateri})
+    </insert>
+
+    <select id="getAllMateri" resultType="com.codeanapp.project.model.Materi">
+        SELECT idmateri, stackid, judulmateri, deskripsimateri
+        FROM materi
+        ORDER BY
+        <choose>
+            <when test="sort == 'idAsc'"> idmateri ASC</when>
+        </choose>
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+
+    <select id="countMateri" resultType="int">
+        SELECT COUNT (*) FROM materi
+    </select>
+
+    <update id="updateMateri" parameterType="com.codeanapp.project.dto.MateriUpdateDto">
+        UPDATE materi
+        <set>
+            <if test="oldidmateri != null">
+                idmateri = #{oldidmateri},
+            </if>
+            <if test="stackid != null">
+                stackid = #{stackid},
+            </if>
+            <if test="judulmateri">
+                judulmateri = #{judulmateri},
+            </if>
+            <if test="deskripsimateri">
+                deskripsimateri = #{deskripsimateri},
+            </if>
+        </set>
+        WHERE idmateri = #{oldidmateri}
+    </update>
+
+    <delete id="deleteMateri" parameterType="String">
+        DELETE FROM materi
+        WHERE idmateri = #{idmateri}
+    </delete>
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.codeanapp.project.mapper.PengajarMapper">
+
+    <insert id="insertPengajar" parameterType="com.codeanapp.project.model.Pengajar">
+        INSERT INTO pengajar (idpengajar, namalengkap, nowa, jeniskelamin, lulusan)
+        VALUES (#{idpengajar}, #{namalengkap}, #{nowa}, #{jeniskelamin}, #{lulusan})
+    </insert>
+
+    <select id="getAllPengajar" resultType="com.codeanapp.project.model.Pengajar">
+        SELECT idpengajar, namalengkap, nowa, jeniskelamin, lulusan
+        FROM pengajar
+    </select>
+
+    <delete id="deletePengajar" parameterType="com.codeanapp.project.model.Pengajar">
+        DELETE FROM pengajar
+        WHERE idpengajar = #{idpengajar}
+    </delete>
+
+</mapper>

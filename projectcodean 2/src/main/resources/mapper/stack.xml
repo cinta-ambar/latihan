@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.codeanapp.project.mapper.StackMapper">
+
+    <insert id="insertStack" parameterType="com.codeanapp.project.model.Stack">
+        INSERT INTO stack(idstack, namastack)
+        VALUES (#{idstack}, #{namastack})
+    </insert>
+
+    <select id="getAllStack" resultType="com.codeanapp.project.model.Stack" >
+        SELECT idstack, namastack
+        FROM stack
+    </select>
+
+    <delete id="deleteStack" parameterType="String">
+        DELETE FROM stack
+        WHERE idstack = #{idstack}
+    </delete>
+</mapper>

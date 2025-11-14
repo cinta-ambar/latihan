@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.codeanapp.project.mapper.PelajarMateriMapper">
+
+    <insert id="insertPelajarMateri" parameterType="com.codeanapp.project.model.PelajarMateri">
+        INSERT INTO pelajarmateri (idpelajarmateri, materiid, pelajarid, nilai)
+        VALUES (#{idpelajarmateri}, #{materiid}, #{pelajarid}, #{nilai})
+    </insert>
+
+    <select id="getAllPelajarMateri" resultType="com.codeanapp.project.model.PelajarMateri">
+        SELECT idpelajarmateri, materiid, pelajarid, nilai
+        FROM pelajarmateri
+        ORDER BY
+        <choose>
+            <when test="sort == 'idAsc'"> idpelajarmateri ASC</when>
+        </choose>
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+
+    <select id="countPelajarMateri" resultType="int">
+        SELECT COUNT (*) FROM pelajarmateri
+    </select>
+
+    <delete id="deletePelajarMateri" parameterType="String">
+        DELETE FROM pelajarmateri
+        WHERE idpelajarmateri = #{idpelajarmateri}
+    </delete>
+</mapper>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.codeanapp.project.mapper.SiswaDaftarMapper">
+
+
+    <insert id="insertSiswaDaftar" parameterType="com.codeanapp.project.model.SiswaDaftar">
+        INSERT INTO siswadaftar( idsiswadaftar, namalengkap, nowa, jeniskelamin, namasekolah, jurusan, pengetahuankoding)
+        VALUES (#{idsiswadaftar}, #{namalengkap}, #{nowa}, #{jeniskelamin}, #{namasekolah}, #{jurusan}, #{pengetahuankoding})
+    </insert>
+
+    <select id="getAllSiswaDaftar" resultType="com.codeanapp.project.model.SiswaDaftar">
+        SELECT idsiswadaftar, namalengkap, nowa, jeniskelamin, namasekolah, jurusan, pengetahuankoding
+        FROM siswadaftar
+        ORDER BY
+        <choose>
+            <when test="sort == 'namaAsc'"> namalengkap ASC</when>
+        </choose>
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+
+    <select id="countSiswaDaftar" resultType="int">
+        SELECT COUNT(*) FROM siswadaftar
+    </select>
+
+    <delete id="deleteSiswaDaftar" parameterType="String">
+        DELETE FROM siswadaftar
+        WHERE idsiswadaftar = #{idsiswadaftar}
+    </delete>
+</mapper>
