@@ -1,0 +1,15 @@
+package com.latihan.repositories;
+
+import com.latihan.model.entities.Guru;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.UUID;
+
+@Repository
+public interface GuruRepository extends JpaRepository<Guru, UUID> {
+
+    Guru getById(UUID idGuru);
+
+    void deleteById(UUID idGuru);
+}
