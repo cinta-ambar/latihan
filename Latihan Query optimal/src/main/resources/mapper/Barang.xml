@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.codeanapp.project.mapper.BarangMapper">
+
+    <insert id="bulkInsertBarang" parameterType="java.util.List">
+        INSERT INTO public.barang (
+        id_barang, id_header, seri_barang, nama_barang, kode_barang,
+        jenis_barang, nib_barang, nip_rekam, waktu_rekam
+        )
+        VALUES
+        <foreach collection="barangList" item="item" separator=",">
+            (#{item.idBarang, jdbcType=VARCHAR},
+            #{item.idHeader, jdbcType=VARCHAR},
+            #{item.seriBarang, jdbcType=NUMERIC},
+            #{item.namaBarang, jdbcType=VARCHAR},
+            #{item.kodeBarang, jdbcType=VARCHAR},
+            #{item.jenisBarang, jdbcType=VARCHAR},
+            #{item.nibBarang, jdbcType=VARCHAR},
+            #{item.nipRekam, jdbcType=VARCHAR},
+            #{item.waktuRekam, jdbcType=TIMESTAMP})
+        </foreach>
+    </insert>
+
+    <select id="getAllBarang" resultType="com.codeanapp.project.model.Barang">
+        SELECT
+        a.id_barang,
+        a.id_header,
+        a.seri_barang,
+        a.nama_barang,
+        a.kode_barang,
+        b.nama_barang as jenis_barang,
+        a.nib_barang,
+<!--        a.nip_rekam,-->
+        a.waktu_rekam
+        FROM public.barang a
+        JOIN public.tr_barang b ON a.kode_barang = b.kode_barang
+        <if test="sortField != null and sortOrder != null">
+            ORDER BY ${sortField} ${sortOrder}
+        </if>
+        <if test="offset >= 0">
+            OFFSET #{offset}
+        </if>
+        <if test="limit >= 0">
+            LIMIT #{limit}
+        </if>
+    </select>
+
+    <select id="countBarang" resultType="Integer">
+        SELECT COUNT(*)
+        FROM public.barang
+    </select>
+
+</mapper>
